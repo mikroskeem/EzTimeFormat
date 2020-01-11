@@ -54,6 +54,11 @@ public final class EzTimeFormatter {
             duration = duration.negated();
         }
 
+        // Fail fast if duration is zero
+        if (duration.isZero()) {
+            return "0 " + SECONDS_PLACEHOLDER;
+        }
+
         long days = duration.toDays();
         duration = duration.minusDays(days);
         if (buildNumber(builder, days, spacingAfterNumber, DAY_PLACEHOLDER, DAYS_PLACEHOLDER)) {
@@ -79,7 +84,9 @@ public final class EzTimeFormatter {
         }
 
         // Delete leading space
-        builder.deleteCharAt(builder.length() - 1);
+        if (builder.length() > 0) {
+            builder.deleteCharAt(builder.length() - 1);
+        }
 
         return builder.toString();
     }
