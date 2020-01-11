@@ -55,7 +55,7 @@ public final class EzTimeFormatter {
         }
 
         // Fail fast if duration is zero
-        if (duration.isZero()) {
+        if (duration.getSeconds() == 0 && duration.getNano() > 0) {
             return "0 " + SECONDS_PLACEHOLDER;
         }
 
