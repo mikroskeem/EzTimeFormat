@@ -49,7 +49,6 @@ public final class EzTimeFormatter {
 
     @NonNull
     public static String formatDuration(@NonNull Duration duration, boolean spacingAfterNumber) {
-        StringBuilder builder = new StringBuilder();
         if (duration.isNegative()) {
             duration = duration.negated();
         }
@@ -58,6 +57,8 @@ public final class EzTimeFormatter {
         if (duration.getSeconds() == 0 && duration.getNano() >= 0) {
             return "0 " + SECONDS_PLACEHOLDER;
         }
+
+        StringBuilder builder = new StringBuilder();
 
         long days = duration.toDays();
         duration = duration.minusDays(days);
