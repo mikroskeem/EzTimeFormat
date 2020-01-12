@@ -8,6 +8,7 @@ group = "eu.mikroskeem"
 version = "0.0.1-SNAPSHOT"
 
 val checkerQualVersion = "3.1.0"
+val junitVersion = "5.5.2"
 
 repositories {
     mavenCentral()
@@ -15,6 +16,8 @@ repositories {
 
 dependencies {
     compileOnly("org.checkerframework:checker-qual:$checkerQualVersion")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }
 
 java {
@@ -25,6 +28,13 @@ java {
 license {
     header = rootProject.file("etc/HEADER")
     filter.include("**/*.java")
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 val sourcesJar by tasks.creating(Jar::class) {
