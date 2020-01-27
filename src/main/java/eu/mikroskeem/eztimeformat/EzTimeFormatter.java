@@ -41,6 +41,8 @@ public final class EzTimeFormatter {
     public static final String MINUTES_PLACEHOLDER = "{minutes}";
     public static final String SECOND_PLACEHOLDER = "{second}";
     public static final String SECONDS_PLACEHOLDER = "{seconds}";
+    public static final String MILLISECOND_PLACEHOLDER = "{millisecond}";
+    public static final String MILLISECONDS_PLACEHOLDER = "{milliseconds}";
 
     @NonNull
     public static String formatDuration(@NonNull Duration duration) {
@@ -79,8 +81,14 @@ public final class EzTimeFormatter {
         }
 
         long seconds = duration.getSeconds();
-        //duration = duration.minusSeconds(seconds);
+        duration = duration.minusSeconds(seconds);
         if (buildNumber(builder, seconds, spacingAfterNumber, SECOND_PLACEHOLDER, SECONDS_PLACEHOLDER)) {
+            builder.append(' ');
+        }
+
+        long milliseconds = duration.toMillis();
+        //duration = duration.minusMillis(milliseconds);
+        if (buildNumber(builder, milliseconds, spacingAfterNumber, MILLISECOND_PLACEHOLDER, MILLISECONDS_PLACEHOLDER)) {
             builder.append(' ');
         }
 

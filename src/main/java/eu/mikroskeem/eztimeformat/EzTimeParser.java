@@ -116,6 +116,7 @@ public final class EzTimeParser {
 
     static {
         Map<String, LongFunction<Duration>> mapping = new HashMap<>();
+        mapping.put("ms", Duration::ofMillis);
         mapping.put("s", Duration::ofSeconds);
         mapping.put("m", Duration::ofMinutes);
         mapping.put("h", Duration::ofHours);
